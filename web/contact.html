@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Station - Contact Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="images/TABIMAGE.png" type="image/png">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #000;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        .animate-slideUp {
+            animation: slideUp 1s ease-in-out forwards;
+        }
+
+        /* Delay classes */
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-400 { animation-delay: 0.4s; }
+
+        /* Team Card Styling */
+        .team-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #1f2937; /* gray-800 */
+            border-radius: 0.5rem;
+            overflow: hidden;
+            text-align: center;
+            padding: 2rem; /* Increased padding for balance */
+        }
+
+        .team-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.5); /* blue-500 */
+        }
+
+        .team-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem; /* Adjusted margin for proportionality */
+            border: 2px solid #3b82f6; /* blue-500 */
+        }
+
+        .team-card h3 {
+            font-size: 1.5rem; /* Increased for proportionality */
+            font-weight: 600;
+            letter-spacing: 0.02em; /* Subtle letter spacing */
+            margin-bottom: 0.5rem; /* Adjusted spacing */
+            line-height: 1.4; /* Improved readability */
+        }
+
+        .team-card p {
+            color: #d1d5db; /* gray-300 */
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem; /* Increased for spacing */
+            line-height: 1.5; /* Improved readability */
+        }
+
+        .team-card a {
+            color: #3b82f6; /* blue-500 */
+            text-decoration: none;
+        }
+
+        .team-card a:hover {
+            color: #2563eb; /* blue-600 */
+        }
+
+        /* Team Picture Styling */
+        .team-picture {
+            max-width: 600px;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin: 0 auto 2rem;
+            border: 3px solid #3b82f6; /* blue-500 */
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3); /* Subtle shadow */
+            transition: transform 0.3s ease;
+        }
+
+        .team-picture:hover {
+            transform: scale(1.1);
+        }
+
+        /* Navbar Styling */
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h2.text-4xl {
+                font-size: 2rem;
+            }
+
+            .navbar-left {
+                gap: 0.25rem;
+            }
+
+            .navbar-left img {
+                height: 2rem;
+            }
+
+            .team-card img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .team-card h3 {
+                font-size: 1.25rem; /* Scaled down for smaller screens */
+            }
+
+            .team-picture {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body class="text-white font-sans">
+   
+    <header class="bg-gray-900 py-4 sticky top-0 z-10">
+        <nav class="max-w-7xl mx-auto px-4">
+            <div class="navbar-container">
+                <div class="navbar-left">
+                    <a href="index.html" class="text-2xl font-bold">Movie Station</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="contact.html" class="text-blue-500 hover:text-blue-600">Contact Us</a>
+                    <img src="images/logo.png" alt="Movie Station Logo" class="h-10">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="py-16 px-4 bg-gray-900">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&h=400&q=80" alt="Movie Station Team" class="team-picture animate-fadeIn">
+        <h2 class="text-4xl font-bold text-center mb-12 animate-slideUp">Meet Our Team</h2>
+        <p class="text-center text-gray-300 max-w-2xl mx-auto mb-12 animate-fadeIn delay-200">
+            Our dedicated team at Movie Station is here to bring you the best movie experience. Contact us with your questions or ideas, and we’ll respond faster than a blockbuster premiere!
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <div class="team-card animate-slideUp delay-200">
+                <img src="Team/israel.jpg" alt="John Doe">
+                <h3>Israel Yohannes</h3>
+                <p>Director and Developer</p>
+                <p><a href="mailto:john@moviestation.com">Izrel@moviestation.com</a></p>
+                <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+            </div>
+            <div class="team-card animate-slideUp delay-400">
+                <img src="Team/Olbrat.jpg" alt="Mike Johnson">
+                <h3>Beka Guta</h3>
+                <p>Director</p>
+                <p><a href="mailto:mike@moviestation.com">beka@moviestation.com</a></p>
+                <p><a href="tel:+1234567891">+251984555422</a></p>
+            </div>
+             <div class="team-card animate-slideUp delay-200">
+                <img src="Team/kena.webp" alt="Chris Brown">
+                <h3>Kena Dereje </h3>
+                <p>Team director</p>
+                <p><a href="mailto:chris@moviestation.com">kena@moviestation.com</a></p>
+                <p><a href="tel:+1234567896">+251544776322</a></p>
+            </div>
+            <div class="team-card animate-slideUp delay-200">
+                <img src="Team/hibst.jpg" alt="Jane Smith">
+                <h3>Hibst Getachew</h3>
+                <p>Web Developer</p>
+                <p><a href="mailto:jane@moviestation.com">hibst@moviestation.com</a></p>
+                <p><a href="tel:+1234567892">+251984436322</a></p>
+            </div>
+              <div class="team-card animate-slideUp delay-400">
+                <img src="Team/rakeb.jpg" alt="Lisa Taylor">
+                <h3>Rakeb Habtamu</h3>
+                <p>Content managment team</p>
+                <p><a href="mailto:lisa@moviestation.com">lisa@moviestation.com</a></p>
+                <p><a href="tel:+1234567895">+251984774562</a></p>
+            </div>
+            <div class="team-card animate-slideUp delay-400">
+                <img src="Team/tsion.jpg" alt="Emily Davis">
+                <h3>Tsion Abraham</h3>
+                <p>Content Manager</p>
+                <p><a href="mailto:emily@moviestation.com">zion@moviestation.com</a></p>
+                <p><a href="tel:+1234567893">+251984776334</a></p>
+            </div>
+            <div class="team-card animate-slideUp delay-200">
+                <img src="Team/gelane.webp" alt="Sarah Wilson">
+                <h3>Gelane Regassa</h3>
+                <p>Content managment team</p>
+                <p><a href="mailto:sarah@moviestation.com">sarah@moviestation.com</a></p>
+                <p><a href="tel:+1234567894">+251984321322</a></p>
+            </div>
+          
+           
+            <div class="team-card animate-slideUp delay-400">
+                <img src="Team/mikiyas.webp" alt="David Lee">
+                <h3>Mikiyas Gezahegn</h3>
+                <p>Evaluator</p>
+                <p><a href="mailto:david@moviestation.com">mikiyas@moviestation.com</a></p>
+                <p><a href="tel:+1234567897">+2519664776322</a></p>
+            </div>
+            <div class="team-card animate-slideUp delay-200">
+                <img src="Team/isaachadjar.jpg" alt="Tom Clark">
+                <h3>Yishak Endale</h3>
+                <p>Team evaluation </p>
+                <p><a href="mailto:tom@moviestation.com">isaac@moviestation.com</a></p>
+                <p><a href="tel:+1234567898">+251984776322</a></p>
+            </div>
+            <div class="team-card animate-slideUp delay-400">
+                <img src="Team/bekur.webp" alt="Mark Evans">
+                <h3>Bekur Sleshi</h3>
+                <p>Team evaluation</p>
+                <p><a href="mailto:mark@moviestation.com">bekur@moviestation.com</a></p>
+                <p><a href="tel:+1234567899">+251984776332</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black py-6 text-center">
+        <p class="text-gray-400">© 2025 Movie Station. For film junkies everywhere.</p>
+    </footer>
+</body>
+</html>

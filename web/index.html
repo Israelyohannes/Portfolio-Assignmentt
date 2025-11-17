@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Station</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="images/TABIMAGE.png" type="image/png">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background-color: #000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Light theme */
+        body.light-theme {
+            background-color: #f0f0f0;
+            color: #000;
+        }
+
+        body.light-theme .bg-gray-900 {
+            background-color: #e0e0e0;
+        }
+
+        body.light-theme .bg-gray-800 {
+            background-color: #d1d1d1;
+        }
+
+        body.light-theme .bg-black {
+            background-color: #fff;
+        }
+
+        body.light-theme .text-gray-400 {
+            color: #333;
+        }
+
+        body.light-theme .text-gray-300 {
+            color: #444;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+                font-weight: 700;
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 0 0 20px rgba(59, 130, 246, 1);
+                font-weight: 900;
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+                font-weight: 700;
+            }
+        }
+
+        @keyframes writeAndDisappear {
+            0% {
+                width: 0;
+                opacity: 1;
+            }
+            50% {
+                width: 100%;
+                opacity: 1;
+            }
+            80% {
+                width: 100%;
+                opacity: 1;
+            }
+            100% {
+                width: 100%;
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        .animate-slideUp {
+            animation: slideUp 1s ease-in-out forwards;
+        }
+
+        .animate-pulseGlow {
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        .animate-writeAndDisappear {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: 'Caveat', cursive;
+            animation: writeAndDisappear 5s infinite ease-in-out;
+        }
+
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-400 { animation-delay: 0.4s; }
+
+        .genre-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 0 auto;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .genre-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .genre-card img {
+            transition: transform 0.3s ease;
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+
+        .genre-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .genre-card.large {
+            max-width: 400px;
+        }
+
+        .genre-card.small {
+            max-width: 300px;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #1f2937;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            color: #fff;
+        }
+
+        body.light-theme .modal-content {
+            background-color: #fff;
+            GalaticAssistant: color: #000;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Splash Screen Styling */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .splash-screen.fade-out {
+            opacity: 0;
+        }
+
+        .splash-screen h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.2rem;
+            animation: pulseGlow 2s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .genre-card.large, .genre-card.small {
+                max-width: 90%;
+            }
+
+            h1.text-5xl {
+                font-size: 2.5rem;
+            }
+
+            h2.text-4xl {
+                font-size: 2rem;
+            }
+
+            .navbar-left {
+                gap: 0.25rem;
+            }
+
+            .navbar-left img {
+                height: 2rem;
+            }
+
+            .splash-screen h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="text-white font-sans">
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <h1 id="splashText">Movie Station</h1>
+    </div>
+
+    <header class="bg-gray-900 py-4 sticky top-0 z-10">
+        <nav class="max-w-7xl mx-auto px-4">
+            <div class="navbar-container">
+                <div class="navbar-left">
+                    <a href="index.html" class="text-2xl font-bold">Movie Station</a>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <button id="themeToggle" class="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 mr-4">Toggle Theme</button>
+                    <a href="contact.html" style="color: #3b82f6; text-decoration: none; margin-right: 10px;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#3b82f6'">
+                        Contact Us
+                    </a>
+                    <img src="images/logo.png" alt="Movie Station Logo" style="height: 40px;">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="relative h-screen overflow-hidden">
+        <video autoplay muted loop class="absolute top-0 left-0 w-full h-full object-cover opacity-60">
+            <source src="home.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">Movie Station</h1>
+            <p class="text-xl md:text-2xl mb-6 animate-writeAndDisappear">Simple Online Film Watching Web</p>
+            <a href="#genres" class="bg-blue-500 text-white py-3 px-8 rounded-full text-lg hover:bg-blue-600 transition-transform transform hover:scale-105 animate-fadeIn delay-400">Explore Genres</a>
+        </div>
+    </div>
+
+    <section id="genres" class="py-16 px-4 bg-gray-900">
+        <h2 class="text-4xl font-bold text-center mb-12 animate-slideUp">Pick Your Mood</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-7xl mx-auto" id="genreGrid">
+            <div class="genre-card large bg-gray-800 p-6 rounded-lg text-center hover:shadow-2xl transition-all transform hover:-translate-y-2" data-genre="Action" data-description="Explosive stunts, thrilling chases, and epic battles await in action-packed films." data-link="action.html">
+                <img src="images/Action.webp" alt="Action" class="w-full h-56 object-cover rounded mb-4">
+                <h3 class="text-xl font-semibold">Action</h3>
+            </div>
+            <div class="genre-card small bg-gray-800 p-6 rounded-lg text-center hover:shadow-2xl transition-all transform hover:-translate-y-2" data-genre="Romance" data-description="Heartwarming stories of love, passion, and connection that tug at your heartstrings." data-link="romance.html">
+                <img src="images/romance.avif" alt="Romance" class="w-full h-56 object-cover rounded mb-4">
+                <h3 class="text-xl font-semibold">Romance</h3>
+            </div>
+            <div class="genre-card large bg-gray-800 p-6 rounded-lg text-center hover:shadow-2xl transition-all transform hover:-translate-y-2" data-genre="Comedy" data-description="Laugh-out-loud moments and witty humor to brighten your day." data-link="comedy.html">
+                <img src="images/comedy.jpg" alt="Comedy" class="w-full h-56 object-cover rounded mb-4">
+                <h3 class="text-xl font-semibold">Comedy</h3>
+            </div>
+            <div class="genre-card small bg-gray-800 p-6 rounded-lg text-center hover:shadow-2xl transition-all transform hover:-translate-y-2" data-genre="Western" data-description="Rugged landscapes, outlaws, and tales of the Wild West." data-link="western.html">
+                <img src="images/western.jpg" alt="Western" class="w-full h-56 object-cover rounded mb-4">
+                <h3 class="text-xl font-semibold">Western</h3>
+            </div>
+            <div class="genre-card large bg-gray-800 p-6 rounded-lg text-center hover:shadow-2xl transition-all transform hover:-translate-y-2" data-genre="Horror" data-description="Spine-chilling scares and suspenseful thrills to keep you on edge." data-link="horror.html">
+                <img src="images/horror.webp" alt="Horror" class="w-full h-56 object-cover rounded mb-4">
+                <h3 class="text-xl font-semibold">Horror</h3>
+            </div>
+            <div class="genre-card small bg-gray-800 p-6 rounded-lg text-center hover:shadow-2xl transition-all transform hover:-translate-y-2" data-genre="Fantasy" data-description="Magical worlds, mythical creatures, and epic adventures await." data-link="fantasy.html">
+                <img src="images/fantsy.jpg" alt="Fantasy" class="w-full h-56 object-cover rounded mb-4">
+                <h3 class="text-xl font-semibold">Fantasy</h3>
+            </div>
+            <div class="genre-card large bg-gray-800 p-6 rounded-lg text-center hover:shadow-2xl transition-all transform hover:-translate-y-2" data-genre="Drama" data-description="Emotional stories and powerful performances that resonate deeply." data-link="drama.html">
+                <img src="images/drama.jpg" alt="Drama" class="w-full h-56 object-cover rounded mb-4">
+                <h3 class="text-xl font-semibold">Drama</h3>
+            </div>
+            <div class="genre-card small bg-gray-800 p-6 rounded-lg text-center hover:shadow-2xl transition-all transform hover:-translate-y-2" data-genre="Animation" data-description="Vibrant, imaginative worlds brought to life through stunning animation." data-link="animation.html">
+                <img src="images/animation.avif" alt="Animation" class="w-full h-56 object-cover rounded mb-4">
+                <h3 class="text-xl font-semibold">Animation</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Genre Preview -->
+    <div class="modal" id="genreModal">
+        <div class="modal-content">
+            <span class="close-modal">×</span>
+            <h2 id="modalTitle" class="text-2xl font-bold mb-4"></h2>
+            <p id="modalDescription" class="text-lg"></p>
+            <a id="modalLink" href="#" class="bg-blue-500 text-white py-2 px-6 rounded-full mt-4 inline-block hover:bg-blue-600">Watch Now</a>
+        </div>
+    </div>
+
+    <section class="py-12 px-4 bg-black">
+        <h2 class="text-3xl font-bold text-center mb-8 animate-slideUp">Stream with Our Partners</h2>
+        <div class="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto">
+            <img src="images/hulu.png" alt="Hulu" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="images/paramount.png" alt="Paramount+" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="images/netflix.png" alt="Netflix" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="images/disney.png" alt="Disney+" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="images/appletv.png" alt="Apple TV+" class="h-12 opacity-80 hover:opacity-100 transition-opacity">
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 px-4 bg-gray-900">
+        <h2 class="text-3xl font-bold text-center mb-8 animate-slideUp">Hit Us</h2>
+        <p class="text-center text-gray-300 max-w-2xl mx-auto">Got movie questions or ideas? Email us at <a href="mailto:info@moviestation.com" class="text-blue-500 hover:text-blue-600">info@moviestation.com</a> or call 0912345678</p>
+    </section>
+
+    <footer class="bg-black py-6 text-center">
+        <p class="text-gray-400">© 2025 Movie Station. For film junkies everywhere.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #000;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+    0% { transform: translateY(50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulseGlow {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(59, 130, 246, 0.8); /* blue-500 */
+    }
+    50% {
+        transform: scale(1.05);
+        text-shadow: 0 0 20px rgba(59, 130, 246, 1); /* blue-500 */
+    }
+    100% {
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(59, 130, 246, 0.8); /* blue-500 */
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+.animate-slideUp {
+    animation: slideUp 1s ease-in-out forwards;
+}
+
+.animate-pulseGlow {
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+/* Delay classes for staggered animations */
+.delay-200 { animation-delay: 0.2s; }
+.delay-400 { animation-delay: 0.4s; }
+
+/* Navbar Styling */
+header {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+nav a {
+    transition: color 0.3s ease;
+}
+
+/* Genre Card Styling */
+.genre-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.genre-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.5); /* blue-500 */
+}
+
+.genre-card img {
+    transition: transform 0.3s ease;
+    height: 220px;
+    object-fit: cover;
+}
+
+.genre-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Movie Card Styling */
+.movie-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.5); /* blue-500 */
+}
+
+.movie-card img {
+    transition: transform 0.3s ease;
+    height: 450px;
+    object-fit: cover;
+}
+
+.movie-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Streaming Partners Section */
+section .flex img {
+    transition: opacity 0.3s ease;
+}
+
+/* Ensure responsiveness */
+@media (max-width: 768px) {
+    .genre-card, .movie-card {
+        max-width: 90%;
+    }
+
+    h1.text-5xl {
+        font-size: 2.5rem;
+    }
+
+    h2.text-4xl {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 640px) {
+    nav .flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav .flex div {
+        margin-top: 1rem;
+    }
+}
